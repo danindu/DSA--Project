@@ -251,8 +251,9 @@ public class RealEstate extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_FindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_FindActionPerformed
-      clearHouse();
+        clearHouse();
         String searchBoxTxtField  = txt_searchBox.getText();
+        
         int searchLotNum;
         String firstName    = "abcd";
         String lastName     = "abcd";
@@ -298,6 +299,7 @@ public class RealEstate extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_NextActionPerformed
 
     public static ListHouse getFromUI(){
+        
         int lotNumber       = -1;
         String firstName    = "abcd";
         String lastName     = "abcd";
@@ -316,6 +318,7 @@ public class RealEstate extends javax.swing.JFrame {
             lbl_message.setText("Number of bedrooms field must be an Integer!");
             txt_NumberOfBedrooms.setText("");
         }
+        
         String squareFeetTxtField  = txt_SquareFeet.getText();
         try{
             squareFeet           = Integer.parseInt(squareFeetTxtField);
@@ -324,6 +327,7 @@ public class RealEstate extends javax.swing.JFrame {
             lbl_message.setText("Square Feet field must be an Integer!");
             txt_SquareFeet.setText("");
         }
+        
         String priceTxtField  = txt_Price.getText();
         try{
             price           = Integer.parseInt(priceTxtField);
@@ -332,9 +336,11 @@ public class RealEstate extends javax.swing.JFrame {
             lbl_message.setText("Price field must be an Integer!");
             txt_Price.setText("");
         }
+        
         if( firstName.equals("") || lastName.equals("") ){
             lbl_message.setText("First name and Last name fields are required!");
         }
+        
         String lotNumTxtField  = txt_LotNumber.getText();
         try{
             lotNumber       = Integer.parseInt(lotNumTxtField);
@@ -343,7 +349,9 @@ public class RealEstate extends javax.swing.JFrame {
             lbl_message.setText("Lot number field must be an Integer!");
             txt_LotNumber.setText("");
         }
+        
         ListHouse uiHouse = new ListHouse(lotNumber,firstName,lastName,price,squareFeet,numOfBedrooms);
+        
         return uiHouse;
     }
     
