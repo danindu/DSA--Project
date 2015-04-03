@@ -85,4 +85,31 @@ public class SortedList extends List{
         else
             currentPosition--;
     }
+    
+    @Override
+    public Listable retieve(Listable item) {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int compareResult;
+        int firstIndex      = 0;
+        int lastIndex       = numOfItems - 1;
+        int midPointIndex   = ( firstIndex + lastIndex )/2;
+//        boolean searchMore  = ( firstIndex <= lastIndex );
+        boolean found       = false;
+        
+        while(!found ){
+            midPointIndex   = ( firstIndex + lastIndex )/2;
+            compareResult   = item.compareTo(list[midPointIndex]);
+            
+            if(compareResult == 0)
+                found = true;
+            else if(compareResult > 0){
+                firstIndex  = midPointIndex + 1;
+            }
+            else{
+                lastIndex   = midPointIndex -1;
+            }
+        }
+        
+        return list[midPointIndex].copy();
+    }
 }
