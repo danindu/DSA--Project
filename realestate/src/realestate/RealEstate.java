@@ -4,6 +4,8 @@
  */
 package realestate;
 
+import java.io.IOException;
+
 /**
  *
  * @author Team Olympians
@@ -13,6 +15,9 @@ public class RealEstate extends javax.swing.JFrame {
     /**
      * Creates new form RealEstate
      */
+    
+    private static SortedList houseList = new SortedList();
+    
     public RealEstate() {
         initComponents();
     }
@@ -269,10 +274,26 @@ public class RealEstate extends javax.swing.JFrame {
        
     }//GEN-LAST:event_btn_DeleteActionPerformed
 
+    public static void showHouse (ListHouse house){
+        int lotNum = house.lotNumber();
+        String fname = house.firstName();
+        String lname = house.lastName();
+        int price = house.price();
+        int squateFeet = house.squareFeet();
+        int numOfBed = house.numOfBedrooms();
+        
+        lbl_message.setText("Displaying house lot number : "+lotNum);
+        txt_LotNumber.setText(Integer.toString(lotNum));
+        txt_FirstName.setText(fname);
+        txt_LastName.setText(lname);
+        txt_Price.setText(Integer.toString(price));
+        txt_SquareFeet.setText(Integer.toString(squateFeet));
+        txt_NumberOfBedrooms.setText(Integer.toString(numOfBed));
+    }
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) throws IOException {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -296,10 +317,29 @@ public class RealEstate extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
+        ListHouse house;
+        HouseFile.reset();
+        while(HouseFile.searchMoreHouses()){
+            house = HouseFile.getNextHouse();
+            houseList.insert(house);
+        }
+        HouseFile.close();
+       
+        //display main window
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new RealEstate().setVisible(true);
+                int listLength = houseList.getLength();
+                if( listLength > 0 ){
+                    houseList.resetlist();
+                    ListHouse house1;
+                    house1 = (ListHouse) houseList.getNextItem();
+                    showHouse(house1);
+                }
+                else{
+                    clearHouse();
+                    lbl_message.setText("House List is empty");
+                }
             }
         });
     }
