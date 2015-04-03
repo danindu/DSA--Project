@@ -255,9 +255,69 @@ public class RealEstate extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_FindActionPerformed
 
     private void btn_NextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_NextActionPerformed
-        
+        txt_searchBox.setText("");
+        int listLength = houseList.getLength();
+        if( listLength > 0 ){
+            ListHouse nextHouse;
+            nextHouse = (ListHouse) houseList.getNextItem();
+            showHouse(nextHouse);
+        }
+        else{
+            clearHouse();
+            lbl_message.setText("House List is empty");
+        }
     }//GEN-LAST:event_btn_NextActionPerformed
 
+    public static ListHouse getFromUI(){
+        int lotNumber       = -1;
+        String firstName    = "abcd";
+        String lastName     = "abcd";
+        int price           = 0;
+        int squareFeet      = 0;
+        int numOfBedrooms   = 0;
+        
+        firstName       = txt_FirstName.getText();
+        lastName        = txt_LastName.getText();
+        
+        String numOfBedroomsTxtField  = txt_NumberOfBedrooms.getText();
+        try{
+            numOfBedrooms           = Integer.parseInt(numOfBedroomsTxtField);
+        }
+        catch(NumberFormatException e){
+            lbl_message.setText("Number of bedrooms field must be an Integer!");
+            txt_NumberOfBedrooms.setText("");
+        }
+        String squareFeetTxtField  = txt_SquareFeet.getText();
+        try{
+            squareFeet           = Integer.parseInt(squareFeetTxtField);
+        }
+        catch(NumberFormatException e){
+            lbl_message.setText("Square Feet field must be an Integer!");
+            txt_SquareFeet.setText("");
+        }
+        String priceTxtField  = txt_Price.getText();
+        try{
+            price           = Integer.parseInt(priceTxtField);
+        }
+        catch(NumberFormatException e){
+            lbl_message.setText("Price field must be an Integer!");
+            txt_Price.setText("");
+        }
+        if( firstName.equals("") || lastName.equals("") ){
+            lbl_message.setText("First name and Last name fields are required!");
+        }
+        String lotNumTxtField  = txt_LotNumber.getText();
+        try{
+            lotNumber       = Integer.parseInt(lotNumTxtField);
+        }
+        catch(NumberFormatException e){
+            lbl_message.setText("Lot number field must be an Integer!");
+            txt_LotNumber.setText("");
+        }
+        ListHouse uiHouse = new ListHouse(lotNumber,firstName,lastName,price,squareFeet,numOfBedrooms);
+        return uiHouse;
+    }
+    
     private void btn_ClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ClearActionPerformed
       
     }//GEN-LAST:event_btn_ClearActionPerformed
