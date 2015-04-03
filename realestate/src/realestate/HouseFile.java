@@ -35,8 +35,12 @@ public class HouseFile {
     }
     
     public static boolean searchMoreHouses(){
-        if(!inputFileOpen || newHouseFirstLine == null){ return false; }
-        else{ return true; }
+        if(!inputFileOpen || newHouseFirstLine == null){ 
+            return false; 
+        }
+        else{ 
+            return true; 
+        }
     }
     
     public static ListHouse getNextHouse() throws IOException{

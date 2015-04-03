@@ -371,7 +371,22 @@ public class RealEstate extends javax.swing.JFrame {
     }
     
     private void btn_AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AddActionPerformed
-        
+        txt_searchBox.setText("");
+        ListHouse insertHouse = getFromUI();
+        if( insertHouse.lotNumber() != -1 && insertHouse.price() != 0 && insertHouse.squareFeet() != 0 && insertHouse.numOfBedrooms() != 0  && !insertHouse.firstName().equals("")  && !insertHouse.lastName().equals("")  ){
+            if(houseList.isThere(insertHouse)){
+                lbl_message.setText("The house you specified is already in the list");
+            }
+            else if(houseList.isFull()){
+                lbl_message.setText("The House List is Full!");
+            }
+            else{
+                int lotNum = insertHouse.lotNumber();
+                houseList.insert(insertHouse);
+                lbl_message.setText("Lot number : "+lotNum+" house is inserted!");
+                clearHouse();
+            }
+        }  
     }//GEN-LAST:event_btn_AddActionPerformed
 
     private void btn_ResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ResetActionPerformed
@@ -379,7 +394,7 @@ public class RealEstate extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_ResetActionPerformed
 
     private void btn_DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_DeleteActionPerformed
-           txt_searchBox.setText("");
+        txt_searchBox.setText("");
         int listLength1 = houseList.getLength();
         if( listLength1 > 0 ){
             ListHouse deleteHouse = getFromUI();
