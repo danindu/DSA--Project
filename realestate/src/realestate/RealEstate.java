@@ -319,9 +319,20 @@ public class RealEstate extends javax.swing.JFrame {
     }
     
     private void btn_ClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ClearActionPerformed
-      
+        lbl_message.setText("");
+        txt_searchBox.setText("");
+        clearHouse();
     }//GEN-LAST:event_btn_ClearActionPerformed
-
+    
+    public static void clearHouse (){
+        txt_LotNumber.setText("");
+        txt_FirstName.setText("");
+        txt_LastName.setText("");
+        txt_Price.setText("");
+        txt_SquareFeet.setText("");
+        txt_NumberOfBedrooms.setText("");
+    }
+    
     private void btn_AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AddActionPerformed
         
     }//GEN-LAST:event_btn_AddActionPerformed
@@ -331,7 +342,34 @@ public class RealEstate extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_ResetActionPerformed
 
     private void btn_DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_DeleteActionPerformed
-       
+           txt_searchBox.setText("");
+        int listLength1 = houseList.getLength();
+        if( listLength1 > 0 ){
+            ListHouse deleteHouse = getFromUI();
+            if( deleteHouse.lotNumber() != -1 && deleteHouse.price() != 0 && deleteHouse.squareFeet() != 0 && deleteHouse.numOfBedrooms() != 0  && !deleteHouse.firstName().equals("")  && !deleteHouse.lastName().equals("")  ){
+                if(!houseList.isThere(deleteHouse)){
+                    lbl_message.setText("The house you specified is not in the list");
+                }
+                else{
+                    int lotNum = deleteHouse.lotNumber();
+                    houseList.delete(deleteHouse);
+                    int listLength2 = houseList.getLength();
+                    if( listLength2 > 0 ){
+                        ListHouse nextHouse;
+                        nextHouse = (ListHouse) houseList.getNextItem();
+                        showHouse(nextHouse);
+                        lbl_message.setText("Lot number : "+lotNum+" house is deleted!");
+                    }
+                    else{
+                        clearHouse();
+                        lbl_message.setText("House List is empty");
+                    }
+                }
+            }
+        }
+        else{
+            lbl_message.setText("House List is empty");
+        }
     }//GEN-LAST:event_btn_DeleteActionPerformed
 
     public static void showHouse (ListHouse house){
