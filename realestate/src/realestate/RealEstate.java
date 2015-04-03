@@ -251,7 +251,36 @@ public class RealEstate extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_FindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_FindActionPerformed
-      
+      clearHouse();
+        String searchBoxTxtField  = txt_searchBox.getText();
+        int searchLotNum;
+        String firstName    = "abcd";
+        String lastName     = "abcd";
+        int price           = 0;
+        int squareFeet      = 0;
+        int numOfBedrooms   = 0;
+        
+        try{
+            searchLotNum = Integer.parseInt(searchBoxTxtField);
+            ListHouse searchHouse = new ListHouse(searchLotNum,firstName,lastName,price,squareFeet,numOfBedrooms);
+            if(houseList.isThere(searchHouse)){
+                ListHouse searchedHouse = (ListHouse) houseList.retieve(searchHouse);
+                showHouse(searchedHouse);
+            }
+            else{
+                lbl_message.setText("Lot Number Not Found.");
+            }
+        }
+        catch(NumberFormatException e){
+            if(searchBoxTxtField.equals("")){
+                lbl_message.setText("Insert the lot number of the house you wish to search");   
+            }
+            else{
+                lbl_message.setText("Lot number must be an Integer!");
+            }
+            txt_searchBox.setText("");
+        }
+        
     }//GEN-LAST:event_btn_FindActionPerformed
 
     private void btn_NextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_NextActionPerformed
