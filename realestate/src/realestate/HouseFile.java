@@ -4,13 +4,35 @@
  */
 package realestate;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  *
- * @author Danindu
+ * @author team Olympians
  */
 public class HouseFile {
+    private static BufferedReader inputFile;
+    private static PrintWriter outputFile;
+    private static boolean inputFileOpen    = false;
+    private static boolean outputFileOpen   = false;
+    private static String newHouseFirstLine = "";
+    
+    public static void reset() throws IOException{
+        if(inputFileOpen){
+            inputFile.close();
+        }
+        if(outputFileOpen){
+            outputFile.close();
+        }
+//        inputFile           = new BufferedReader(new FileReader("houses.txt"));
+        inputFile           = new BufferedReader(new FileReader("src\\realestate\\houses.txt"));
+        inputFileOpen       = true;
+        newHouseFirstLine   = inputFile.readLine();
+    }
+    
     public static boolean searchMoreHouses(){
         if(!inputFileOpen || newHouseFirstLine == null){ return false; }
         else{ return true; }
