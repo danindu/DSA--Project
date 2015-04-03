@@ -390,7 +390,18 @@ public class RealEstate extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_AddActionPerformed
 
     private void btn_ResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ResetActionPerformed
-       
+        txt_searchBox.setText("");
+        houseList.resetlist();
+        int listLength = houseList.getLength();
+        if( listLength > 0 ){
+            ListHouse nextHouse;
+            nextHouse = (ListHouse) houseList.getNextItem();
+            showHouse(nextHouse);
+        }
+        else{
+            clearHouse();
+            lbl_message.setText("House List is empty");
+        }  
     }//GEN-LAST:event_btn_ResetActionPerformed
 
     private void btn_DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_DeleteActionPerformed
