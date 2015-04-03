@@ -6,6 +6,7 @@ package realestate;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -57,5 +58,38 @@ public class HouseFile {
         
         ListHouse house = new ListHouse(lotNumber,firstName,lastName,price,squareFeet,numOfBedrooms);
         return house;
+    }
+    
+    public static void rewrite() throws IOException{
+        if(inputFileOpen){
+            inputFile.close();
+        }
+        if(outputFileOpen){
+            outputFile.close();
+        }
+//        outputFile          = new PrintWriter(new FileWriter("house.txt"));
+        outputFile          = new PrintWriter(new FileWriter("src\\realestate\\houses.txt"));
+        outputFileOpen      = true;
+    }
+    
+    
+    public static void printToFile(ListHouse house) throws IOException{
+        outputFile.println(house.lotNumber());
+        outputFile.println(house.firstName());
+        outputFile.println(house.lastName());
+        outputFile.println(house.price());
+        outputFile.println(house.squareFeet());
+        outputFile.println(house.numOfBedrooms());
+    }
+    
+    public static void close() throws IOException{
+        if(inputFileOpen){
+            inputFile.close();
+        }
+        if(outputFileOpen){
+            outputFile.close();
+        }
+        inputFileOpen    = false;
+        outputFileOpen   = false;
     }
 }
