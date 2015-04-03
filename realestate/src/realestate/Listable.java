@@ -6,8 +6,12 @@ package realestate;
 
 /**
  *
- * @author Danindu
+ * @author team Olympians
  */
-public class Listable {
+public interface Listable {
+
+    public abstract int compareTo ( Listable other);
     
+    public abstract Listable copy();
+
 }
