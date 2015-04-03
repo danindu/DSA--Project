@@ -4,7 +4,10 @@
  */
 package realestate;
 
+import static java.awt.image.ImageObserver.WIDTH;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -53,7 +56,12 @@ public class RealEstate extends javax.swing.JFrame {
         btn_Reset = new javax.swing.JButton();
         btn_Delete = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                saveToFile(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("HomeVisit Real Estate System");
@@ -435,6 +443,23 @@ public class RealEstate extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_DeleteActionPerformed
 
+    private void saveToFile(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_saveToFile
+        try {
+            int listLength = houseList.getLength();
+            houseList.resetlist();
+            HouseFile.rewrite();
+            for (int i = 0 ; i < listLength ; i++) {
+                ListHouse house = (ListHouse) houseList.getNextItem();
+                HouseFile.printToFile(house);
+            }
+            HouseFile.close();
+        } catch (IOException ex) {
+            Logger.getLogger(RealEstate.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.exit(WIDTH);
+    }//GEN-LAST:event_saveToFile
+
+    
     public static void showHouse (ListHouse house){
         int lotNum = house.lotNumber();
         String fname = house.firstName();
@@ -451,6 +476,8 @@ public class RealEstate extends javax.swing.JFrame {
         txt_SquareFeet.setText(Integer.toString(squateFeet));
         txt_NumberOfBedrooms.setText(Integer.toString(numOfBed));
     }
+    
+    
     /**
      * @param args the command line arguments
      */
